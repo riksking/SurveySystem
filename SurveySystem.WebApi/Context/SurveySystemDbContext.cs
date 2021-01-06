@@ -18,7 +18,8 @@ namespace SurveySystem.WebApi.Context
             => optionsBuilder.UseLoggerFactory(_loggerFactory);
 
         
-        public virtual DbSet<AnswerAttachment> AnswerAttachments { get; set; }
+        public virtual DbSet<AnswerAttachmentModel> AnswerAttachments { get; set; }
+        public virtual DbSet<AnswerEventModel> AnswerEvents { get; set; }
  
     }
 }

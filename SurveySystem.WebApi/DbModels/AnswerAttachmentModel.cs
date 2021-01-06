@@ -2,7 +2,7 @@
 
 namespace SurveySystem.WebApi.DbModels
 {
-    public class AnswerAttachment
+    public class AnswerAttachmentModel
     {
         public Guid Id {get; set;}
         public Guid AnswerId { get; set; }

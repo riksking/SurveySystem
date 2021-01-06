@@ -80,8 +80,8 @@ namespace SurveySystem.WebApi.Controllers
                 _logger.LogDebug("Список действий пользователя пуст. Сохранение данных не требуется!"); // Хотя возможно и требуется. Это не уточнено в ТЗ
                 return Ok();
             }
-            
-            
+
+            await _answerService.AddAnswerEventsAsync(answerId, answerEvents);
             
             return await Task.FromResult(Ok());
 

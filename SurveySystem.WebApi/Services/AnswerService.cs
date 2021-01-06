@@ -6,6 +6,7 @@ using Microsoft.Extensions.Logging;
 using SurveySystem.WebApi.Common;
 using SurveySystem.WebApi.Context;
 using SurveySystem.WebApi.DbModels;
+using SurveySystem.WebApi.Request;
 
 namespace SurveySystem.WebApi.Services
 {
@@ -34,7 +35,7 @@ namespace SurveySystem.WebApi.Services
 
             foreach (var file in files)
             {
-                _dbContext.AnswerAttachments.Add(new AnswerAttachment()
+                _dbContext.AnswerAttachments.Add(new AnswerAttachmentModel()
                 {
                     AnswerId = answerId,
                     FileName = file.FileName,
@@ -49,7 +50,34 @@ namespace SurveySystem.WebApi.Services
             //Пока нет БД
             //await _dbContext.SaveChangesAsync();
         }
-        
+
+
+        public async Task AddAnswerEventsAsync(Guid answerId, AnswerEvent[] answerEvents)
+        {
+            _logger.LogDebug($"Enter in method '{nameof(AddAnswerEventsAsync)}.[{_sessionId}]'");
+            if (!answerEvents?.Any() ?? true)
+            {
+                _logger.LogError($"Список действий пользователя пуст![{_sessionId}]'"); // Хотя возможно и требуется. Это не уточнено в ТЗ
+                throw new ArgumentException("Пустая коллекция эвентов", nameof(answerEvents));
+            }
+
+            foreach (var answerEvent in answerEvents)
+            {
+                _dbContext.AnswerEvents.Add(new AnswerEventModel
+                {
+                    AnswerId = answerId,
+                    Id = Guid.NewGuid(),
+                    Created = DateTime.UtcNow,
+                    ClientTime = answerEvent.ClientTime,
+                    Type = (int)answerEvent.Type,
+                    Value = answerEvent.Value
+                });
+            }
+            
+            await Task.CompletedTask;
+            //Пока нет БД
+            //await _dbContext.SaveChangesAsync();
+        }
         
         
     }

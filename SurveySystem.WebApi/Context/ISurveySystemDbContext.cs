@@ -5,6 +5,7 @@ namespace SurveySystem.WebApi.Context
 {
     public interface ISurveySystemDbContext
     {
-        DbSet<AnswerAttachment> AnswerAttachments { get; set; }
+        DbSet<AnswerAttachmentModel> AnswerAttachments { get; set; }
+        DbSet<AnswerEventModel> AnswerEvents { get; set; }
     }
 }
