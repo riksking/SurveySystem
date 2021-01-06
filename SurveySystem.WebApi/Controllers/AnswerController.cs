@@ -52,7 +52,7 @@ namespace SurveySystem.WebApi.Controllers
                 return Ok();
             }
 
-            _answerService.AddAttachments(files);
+            await _answerService.AddAttachmentsAsync(answerId, files);
             
             return await Task.FromResult(Ok());
         }

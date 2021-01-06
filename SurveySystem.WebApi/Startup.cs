@@ -71,7 +71,7 @@ namespace SurveySystem.WebApi
 
         private void ConfigureDatabase(IServiceCollection services)
         {
-            var surveyCS = Configuration.GetConnectionString("ConnectionString");
+            var surveyCS = Configuration.GetConnectionString("DefaultConnection");
 
             services.AddDbContext<SurveySystemDbContext>(builder =>
             {
