@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -9,6 +10,7 @@ using NSwag;
 using Serilog;
 using Serilog.Extensions.Logging;
 using SurveySystem.WebApi.Common;
+using SurveySystem.WebApi.Context;
 using SurveySystem.WebApi.Services;
 
 namespace SurveySystem.WebApi
@@ -63,7 +65,20 @@ namespace SurveySystem.WebApi
 
             services.AddControllers();
 
+            ConfigureDatabase(services);
             ConfigureCustomServices(services);
+        }
+
+        private void ConfigureDatabase(IServiceCollection services)
+        {
+            var surveyCS = Configuration.GetConnectionString("ConnectionString");
+
+            services.AddDbContext<SurveySystemDbContext>(builder =>
+            {
+                builder.UseSqlServer(surveyCS);
+            });
+
+            services.AddScoped<ISurveySystemDbContext, SurveySystemDbContext>();
         }
 
         public virtual void Configure(IApplicationBuilder app, IWebHostEnvironment env)
