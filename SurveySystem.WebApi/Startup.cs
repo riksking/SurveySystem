@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Azure.Storage;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -113,8 +114,13 @@ namespace SurveySystem.WebApi
 
         private void ConfigureCustomServices(IServiceCollection services)
         {
+            services.AddOptions();
+            services.Configure<AzureServiceOptions>(Configuration.GetSection("Azure"));
+            
+            
             services.AddScoped<ISessionBase, SessionBase>();
             services.AddScoped<IAnswerService, AnswerService>();
+            services.AddScoped<IAzureService, AzureService>();
         }
 
         private void ConfigureSwagger(IServiceCollection services)

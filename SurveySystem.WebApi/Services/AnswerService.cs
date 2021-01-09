@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Azure.Storage;
 using Microsoft.Extensions.Logging;
 using SurveySystem.WebApi.Common;
 using SurveySystem.WebApi.Context;
@@ -50,6 +51,9 @@ namespace SurveySystem.WebApi.Services
             }
 
             await _dbContext.SaveChangesAsync();
+            
+            _logger.LogDebug($"Exit from method '{nameof(AddAttachmentsAsync)}.[{_sessionId}]'");
+
         }
 
 
@@ -76,6 +80,9 @@ namespace SurveySystem.WebApi.Services
             }
             
             await _dbContext.SaveChangesAsync();
+            
+            _logger.LogDebug($"Exit from method '{nameof(AddAnswerEventsAsync)}.[{_sessionId}]'");
+
         }
         
         

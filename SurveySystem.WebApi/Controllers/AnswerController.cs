@@ -18,12 +18,14 @@ namespace SurveySystem.WebApi.Controllers
     {
         private readonly ILogger _logger;
         private readonly IAnswerService _answerService;
+        private readonly IAzureService _azureService;
         private readonly Guid _sessionId;
 
-        public AnswerController(ILoggerFactory logger, IAnswerService answerService, ISessionBase sessionBase)
+        public AnswerController(ILoggerFactory logger, IAnswerService answerService, IAzureService azureService, ISessionBase sessionBase)
         {
             _logger = logger.CreateLogger<AnswerController>();
             _answerService = answerService;
+            _azureService = azureService;
             _sessionId = sessionBase.SessionId;
         }
 
@@ -52,7 +54,7 @@ namespace SurveySystem.WebApi.Controllers
             }
 
             await _answerService.AddAttachmentsAsync(answerId, files);
-            
+            await _azureService.AddFilesToBlob(files);
             return await Task.FromResult(Ok());
         }
 
