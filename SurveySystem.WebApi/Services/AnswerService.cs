@@ -20,6 +20,9 @@ namespace SurveySystem.WebApi.Services
         public AnswerService(ILoggerFactory loggerFactory, ISurveySystemDbContext dbContext, ISessionBase sessionBase)
         {
             _dbContext = (SurveySystemDbContext)dbContext ?? throw new ArgumentNullException(nameof(dbContext));
+            
+            _dbContext.Database.EnsureCreated();
+            
             _logger = loggerFactory.CreateLogger<AnswerService>();
             _sessionId = sessionBase.SessionId;
         }
@@ -46,9 +49,7 @@ namespace SurveySystem.WebApi.Services
                 });
             }
 
-            await Task.CompletedTask;
-            //Пока нет БД
-            //await _dbContext.SaveChangesAsync();
+            await _dbContext.SaveChangesAsync();
         }
 
 
@@ -74,9 +75,7 @@ namespace SurveySystem.WebApi.Services
                 });
             }
             
-            await Task.CompletedTask;
-            //Пока нет БД
-            //await _dbContext.SaveChangesAsync();
+            await _dbContext.SaveChangesAsync();
         }
         
         

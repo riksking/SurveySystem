@@ -45,7 +45,6 @@ namespace SurveySystem.WebApi.Controllers
         {
             _logger.LogInformation($"Поступил запрос на сохранение вложений для ответа '{answerId}'.[{_sessionId}]");
             
-            /*var files = Request.Form.Files;*/
             if (!files?.Any() ?? true)
             {
                 _logger.LogDebug($"Список вложений пуст. Сохранение данных не требуется.[{_sessionId}]");

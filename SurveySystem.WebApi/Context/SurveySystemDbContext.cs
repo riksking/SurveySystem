@@ -20,6 +20,5 @@ namespace SurveySystem.WebApi.Context
         
         public virtual DbSet<AnswerAttachmentModel> AnswerAttachments { get; set; }
         public virtual DbSet<AnswerEventModel> AnswerEvents { get; set; }
- 
     }
 }
