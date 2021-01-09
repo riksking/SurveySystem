@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
-using Microsoft.Azure.Storage;
 using Microsoft.Extensions.Logging;
 using SurveySystem.WebApi.Common;
 using SurveySystem.WebApi.Context;
